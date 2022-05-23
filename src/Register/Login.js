@@ -5,12 +5,13 @@ import {
   useSignInWithGoogle,
 } from "react-firebase-hooks/auth";
 import auth from ".././firebase.init";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Loading from "../Shared/Loading";
 import { toast } from "react-toastify";
 import { useSendPasswordResetEmail } from "react-firebase-hooks/auth";
 
 const Login = () => {
+  let location = useLocation();
   const navigate = useNavigate();
   const [signInWithGoogle, googleUser, googleLoading, googleError] =
     useSignInWithGoogle(auth);
@@ -25,8 +26,10 @@ const Login = () => {
     handleSubmit,
   } = useForm();
 
+  let from = location.state?.from?.pathname || "/";
+
   if (user || googleUser) {
-    navigate("/");
+    navigate(from, { replace: true });
   }
 
   if (loading || googleLoading) {

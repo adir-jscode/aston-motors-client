@@ -1,7 +1,7 @@
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useQuery } from "react-query";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import auth from "../firebase.init";
 import Loading from "../Shared/Loading";
 
@@ -14,6 +14,7 @@ const Purchase = () => {
   if (isLoading) {
     return <Loading></Loading>;
   }
+
   return (
     <div class="text-center">
       <h1 class="text-4xl">
