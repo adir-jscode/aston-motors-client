@@ -1,9 +1,32 @@
 import React from "react";
+import { useQuery } from "react-query";
+import Loading from "../Shared/Loading";
+import DisplayPart from "./DisplayPart";
 
 const Parts = () => {
+  const {
+    data: parts,
+    isLoading,
+    refetch,
+  } = useQuery("parts", () =>
+    fetch("http://localhost:5000/part").then((res) => res.json())
+  );
+
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
   return (
-    <div>
-      <h1>This is our parts</h1>
+    <div class="text-6xl font-bold text-center">
+      <div>
+        <h1>
+          OUR <span class="text-primary">PARTS</span>
+        </h1>
+        <div class="grid grid-cols-1 md:grid-col-2 lg:grid-cols-3 gap-5">
+          {parts.map((part) => (
+            <DisplayPart key={part._id} part={part}></DisplayPart>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
