@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import {
   useSignInWithEmailAndPassword,
@@ -9,6 +9,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Loading from "../Shared/Loading";
 import { toast } from "react-toastify";
 import { useSendPasswordResetEmail } from "react-firebase-hooks/auth";
+import useToken from "../Hooks/useToken";
 
 const Login = () => {
   let location = useLocation();
@@ -26,11 +27,18 @@ const Login = () => {
     handleSubmit,
   } = useForm();
 
+  const [token] = useToken(user || googleUser);
+
   let from = location.state?.from?.pathname || "/";
 
-  if (user || googleUser) {
-    navigate(from, { replace: true });
-  }
+  // if () {
+  //   navigate(from, { replace: true });
+  // }
+  useEffect(() => {
+    if (token) {
+      navigate(from, { replace: true });
+    }
+  }, [token, from, navigate]);
 
   if (loading || googleLoading) {
     return <Loading></Loading>;

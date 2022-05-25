@@ -21,7 +21,12 @@ const Purchase = () => {
     isLoading,
     refetch,
   } = useQuery(["purchase", id], () =>
-    fetch(`http://localhost:5000/part/${id}`).then((res) => res.json())
+    fetch(`http://localhost:5000/part/${id}`, {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    }).then((res) => res.json())
   );
 
   if (loading) {
@@ -35,6 +40,7 @@ const Purchase = () => {
       name: data.name,
       location: data.location,
       phone: data.phone,
+      productName: purchase.name,
       quantity: data.quantity,
       Totalprice: purchase.price * data.quantity,
     };
@@ -43,6 +49,7 @@ const Purchase = () => {
       body: JSON.stringify(purchaseInfo),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
     })
       .then((response) => response.json())

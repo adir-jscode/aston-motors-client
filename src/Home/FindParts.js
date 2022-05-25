@@ -8,7 +8,7 @@ import wheels from "../assets/images/wheels.jpg";
 
 const FindParts = () => {
   return (
-    <section class="my-5 w-5/6 mx-auto">
+    <section class="my-20 w-5/6 mx-auto">
       <div>
         <h1 class="text-5xl font-bold text-center">
           {" "}

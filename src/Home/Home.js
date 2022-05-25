@@ -1,6 +1,6 @@
 import React from "react";
 import Parts from "../Parts/Parts";
-import Reviews from "../Reviews/Reviews";
+import Reviews from "./Reviews";
 import Footer from "../Shared/Footer";
 import Banner from "./Banner";
 import BusinessSummary from "./BusinessSummary";

@@ -9,6 +9,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Loading from "../Shared/Loading";
 import { useUpdateProfile } from "react-firebase-hooks/auth";
 import { toast } from "react-toastify";
+import useToken from "../Hooks/useToken";
 
 const Register = () => {
   let location = useLocation();
@@ -27,7 +28,9 @@ const Register = () => {
 
   let from = location.state?.from?.pathname || "/";
 
-  if (user || googleUser) {
+  const [token] = useToken(user || googleUser);
+
+  if (token) {
     navigate(from, { replace: true });
   }
 
