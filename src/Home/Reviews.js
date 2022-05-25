@@ -17,7 +17,7 @@ const Reviews = () => {
   }
   return (
     <div className="my-20">
-      <h1 className="text-6xl text-center font-bold">
+      <h1 className="text-6xl text-center font-bold my-10">
         OUR CUSTOMER <span className="text-primary">REVIEWS</span>{" "}
       </h1>
 

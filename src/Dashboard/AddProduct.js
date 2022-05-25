@@ -10,19 +10,18 @@ const AddProduct = () => {
     formState: { errors },
   } = useForm();
 
+  const imageKey = "0f9321ee3bc068780e683ded6bbb90ac";
+
   const onSubmit = (data) => {
     console.log(data);
-    const imgKey = "0f9321ee3bc068780e683ded6bbb90ac";
+
     const image = data.image[0];
     const formData = new FormData();
     formData.append("image", image);
-    const url = `https://api.imgbb.com/1/upload?key=${imgKey}`;
+    const url = `https://api.imgbb.com/1/upload?key=${imageKey}`;
     fetch(url, {
       method: "POST",
       body: formData,
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
     })
       .then((response) => response.json())
       .then((result) => {
@@ -33,7 +32,7 @@ const AddProduct = () => {
             price: data.price,
             description: data.description,
             minimumQuantity: data.minimum,
-            available: data.available,
+            availableQuantity: data.available,
             image: img,
           };
           //send to database
