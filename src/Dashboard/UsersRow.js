@@ -30,13 +30,20 @@ const UsersRow = ({ user, index, refetch }) => {
       <td>{user.email}</td>
 
       <td>
-        {user.role !== "admin" && (
+        {/* {user.role !== "admin" && (
+          <button onClick={makeAdmin} class="btn btn-success btn-xs">
+            Make Admin
+          </button>
+        )} */}
+        {user.role === "admin" ? (
+          <span className="text-primary font-bold">Admin</span>
+        ) : (
           <button onClick={makeAdmin} class="btn btn-success btn-xs">
             Make Admin
           </button>
         )}
       </td>
-      <td>Red</td>
+      {/* <td>Red</td> */}
     </tr>
   );
 };

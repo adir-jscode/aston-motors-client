@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
+import { toast } from "react-toastify";
 import Loading from "../Shared/Loading";
+import DeleteModal from "./DeleteModal";
 
 const ManageProducts = () => {
+  const [deleteModal, setDeleteModal] = useState(null);
   const {
     data: parts,
     isLoading,
@@ -18,6 +21,25 @@ const ManageProducts = () => {
   if (isLoading) {
     return <Loading></Loading>;
   }
+
+  const handleDelete = (id) => {
+    console.log(id);
+    fetch(`http://localhost:5000/part/${id}`, {
+      method: "DELETE",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (data.deletedCount > 0) {
+          refetch();
+          toast.success("Deleted");
+          setDeleteModal(null);
+        }
+      });
+  };
   return (
     <div>
       <h1>Number of products {parts.length}</h1>
@@ -41,12 +63,24 @@ const ManageProducts = () => {
                 <td>{part.price}</td>
                 <td>{part.availableQuantity}</td>
                 <td>
-                  <button class="btn btn-error">DELETE</button>
+                  <label
+                    onClick={() => setDeleteModal(part)}
+                    for="my-modal-6"
+                    class="btn btn-xs btn-error"
+                  >
+                    Remove
+                  </label>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+        {deleteModal && (
+          <DeleteModal
+            deleteModal={deleteModal}
+            handleDelete={handleDelete}
+          ></DeleteModal>
+        )}
       </div>
     </div>
   );
