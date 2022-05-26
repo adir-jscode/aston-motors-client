@@ -19,6 +19,7 @@ import AddProduct from "./Dashboard/AddProduct";
 import ManageProducts from "./Dashboard/ManageProducts";
 import NotFound from "./Shared/NotFound";
 import RequireAdmin from "./Register/RequireAdmin";
+import Payment from "./Dashboard/Payment";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
         >
           <Route index path="purchase" element={<MyPurchase />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="payment/:id" element={<Payment />} />
           <Route path="review" element={<AddReview />} />
           <Route
             path="users"

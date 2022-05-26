@@ -2,7 +2,7 @@ import { signOut } from "firebase/auth";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useQuery } from "react-query";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import auth from "../firebase.init";
 import Loading from "../Shared/Loading";
 
@@ -57,7 +57,11 @@ const MyPurchase = () => {
                   <td>{purchase.quantity}</td>
                   <td>{purchase.Totalprice}</td>
                   <td>
-                    <button class="btn btn-primary btn-xs">PAY</button>
+                    {" "}
+                    <Link to={`/dashboard/payment/${purchase._id}`}>
+                      {" "}
+                      <button class="btn btn-primary btn-xs"> PAY</button>
+                    </Link>
                   </td>
                 </tr>
               ))}
