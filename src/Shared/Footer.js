@@ -27,7 +27,7 @@ const Footer = () => {
       </footer>
       <footer class="footer bg-neutral footer-center p-4 text-neutral-content">
         <div>
-          <p>Copyright © 2022 - All right reserved</p>
+          <p>Copyright © 2022 Aston Motors - All right reserved</p>
         </div>
       </footer>
     </div>

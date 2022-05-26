@@ -17,6 +17,8 @@ import Users from "./Dashboard/Users";
 import AllOrders from "./Dashboard/AllOrders";
 import AddProduct from "./Dashboard/AddProduct";
 import ManageProducts from "./Dashboard/ManageProducts";
+import NotFound from "./Shared/NotFound";
+import RequireAdmin from "./Register/RequireAdmin";
 
 function App() {
   return (
@@ -44,13 +46,42 @@ function App() {
           <Route index path="purchase" element={<MyPurchase />} />
           <Route path="profile" element={<Profile />} />
           <Route path="review" element={<AddReview />} />
-          <Route path="users" element={<Users />} />
-          <Route path="order" element={<AllOrders />} />
-          <Route path="product" element={<AddProduct />} />
-          <Route path="inventory" element={<ManageProducts />} />
+          <Route
+            path="users"
+            element={
+              <RequireAdmin>
+                <Users />
+              </RequireAdmin>
+            }
+          />
+          <Route
+            path="order"
+            element={
+              <RequireAdmin>
+                <AllOrders />
+              </RequireAdmin>
+            }
+          />
+          <Route
+            path="product"
+            element={
+              <RequireAdmin>
+                <AddProduct />
+              </RequireAdmin>
+            }
+          />
+          <Route
+            path="inventory"
+            element={
+              <RequireAdmin>
+                <ManageProducts />
+              </RequireAdmin>
+            }
+          />
         </Route>
         <Route path="/login" element={<Login></Login>}></Route>
         <Route path="/register" element={<Register></Register>}></Route>
+        <Route path="*" element={<NotFound></NotFound>}></Route>
       </Routes>
       <ToastContainer />
     </div>
