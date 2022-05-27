@@ -4,9 +4,14 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import auth from "../firebase.init";
+import Loading from "./Loading";
 
 const Header = () => {
   const [user, loading, error] = useAuthState(auth);
+
+  if (loading) {
+    return <Loading></Loading>;
+  }
 
   const logout = () => {
     signOut(auth);
@@ -43,10 +48,24 @@ const Header = () => {
                 <NavLink to="/home">Home</NavLink>
               </li>
 
+              {user && (
+                <li>
+                  <NavLink to="/dashboard/purchase">Dashboard</NavLink>
+                </li>
+              )}
+
+              {user && (
+                <li>
+                  <NavLink to="/dashboard/profile">{user.displayName}</NavLink>
+                </li>
+              )}
+
               {user ? (
-                <button onClick={logout} class="btn btn-ghost">
-                  Logout
-                </button>
+                <>
+                  <button onClick={logout} class="btn btn-ghost">
+                    Logout
+                  </button>
+                </>
               ) : (
                 <li>
                   <NavLink to="/login">Login</NavLink>
@@ -63,10 +82,19 @@ const Header = () => {
             <li>
               <NavLink to="/home">Home</NavLink>
             </li>
+            <li>
+              <NavLink to="/portfolio">My Portfolio</NavLink>
+            </li>
 
             {user && (
               <li>
                 <NavLink to="/dashboard/purchase">Dashboard</NavLink>
+              </li>
+            )}
+
+            {user && (
+              <li>
+                <NavLink to="/dashboard/profile">{user.displayName}</NavLink>
               </li>
             )}
 

@@ -100,6 +100,7 @@ const Purchase = () => {
                   <input
                     type="text"
                     placeholder="email"
+                    disabled
                     class="input input-bordered"
                     {...register(
                       "email",
@@ -120,6 +121,7 @@ const Purchase = () => {
                   <input
                     type="text"
                     placeholder="name"
+                    disabled
                     class="input input-bordered"
                     {...register(
                       "name",
@@ -194,8 +196,8 @@ const Purchase = () => {
                         message: "Please enter your quantity",
                       },
                       min: {
-                        value: 6,
-                        message: "Minimum order quantity is 6",
+                        value: 2,
+                        message: "Minimum order quantity is 2",
                       },
                       max: {
                         value: 100,
