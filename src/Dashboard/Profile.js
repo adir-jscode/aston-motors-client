@@ -1,27 +1,31 @@
 import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useQuery } from "react-query";
+import { useParams } from "react-router-dom";
 import auth from "../firebase.init";
 import Loading from "../Shared/Loading";
 import UpdateModal from "./UpdateModal";
 
 const Profile = () => {
+  const { id } = useParams();
   const [user, loading, error] = useAuthState(auth);
-  const [update, setUpdate] = useState(false);
+  const email = user?.email;
+  const [update, setUpdate] = useState(null);
+  const [edit, setEdit] = useState([]);
 
   const {
     data: profile,
     isLoading,
     refetch,
-  } = useQuery(["profile", user], () =>
-    fetch(`http://localhost:5000/profile/${user.email}`, {
+  } = useQuery("profile", () =>
+    fetch(`http://localhost:5000/profile?email=${email}`, {
       method: "GET",
       headers: {
         "content-type": "application/json; charset=utf",
       },
     }).then((response) => response.json())
   );
-  if (isLoading) {
+  if (isLoading || loading) {
     return <Loading></Loading>;
   }
   return (
@@ -33,10 +37,16 @@ const Profile = () => {
         <div class="card-body">
           <h2 class="card-title">Profile name: {user.displayName}</h2>
           <h2 class="card-title">Email: {user.email}</h2>
-          <h2 class="card-title">Education: {profile.education}</h2>
-          <h2 class="card-title">Location: {profile.location}</h2>
-          <h2 class="card-title">Phone Number: {profile.phone}</h2>
-          <h2 class="card-title">LinkedIn: {profile.social}</h2>
+          <h2 class="card-title">Education: {profile?.education} </h2>
+          <h2 class="card-title">
+            Location: {profile?.location ? profile?.location : " "}
+          </h2>
+          <h2 class="card-title">
+            Phone Number: {profile?.phone ? profile?.phone : " "}
+          </h2>
+          <h2 class="card-title">
+            LinkedIn: {profile?.social ? profile?.social : " "}
+          </h2>
           <div class="card-actions justify-center">
             <label
               onClick={() => setUpdate(user)}

@@ -1,46 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
+import { useQuery } from "react-query";
 import { toast } from "react-toastify";
 import auth from "../firebase.init";
+import Loading from "../Shared/Loading";
 
-const UpdateModal = ({ refetch, profile, setUpdate }) => {
+const UpdateModal = ({ profile, setUpdate, refetch }) => {
   const [user, loading, error] = useAuthState(auth);
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
+  const email = user?.email;
+  console.log(email);
+  //   const [education, setEducation] = useState("");
+  //   const [location, setLocation] = useState("");
+  //   const [number, setNumber] = useState("");
+  //   const [social, setSocial] = useState("");
 
-  const onSubmit = (data) => {
-    console.log(data);
+  if (loading) {
+    return <Loading></Loading>;
+  }
 
-    const userInfo = {
-      email: data.email,
-      name: data.name,
-      location: data.location,
-      phone: data.phone,
-      education: data.education,
-      social: data.social,
-    };
-    fetch(`http://localhost:5000/profile/${user.email}`, {
-      method: "PUT",
-      body: JSON.stringify(userInfo),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-        authorization: `Bearer ${localStorage.getItem("accessToken")} `,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        if (data.modifiedCount > 0) {
-          refetch();
-          toast.success("data updated successfully");
-          setUpdate(null);
-        }
-      });
+  const handleOnSubmit = (event) => {
+    event.preventDefault();
+    const education = event.target.education.value;
+    const location = event.target.location.value;
+    const phone = event.target.phone.value;
+    const social = event.target.linkedin.value;
+
+    const userInfo = { education, location, phone, social };
+    if (education && location && phone && social) {
+      fetch(`http://localhost:5000/profile/${email}`, {
+        method: "PUT",
+        body: JSON.stringify(userInfo),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          authorization: `Bearer ${localStorage.getItem("accessToken")} `,
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.modifiedCount > 0) {
+            refetch();
+            toast.success("data updated successfully");
+            setUpdate(false);
+            event.target.reset();
+          }
+        });
+    }
   };
   return (
     <div>
@@ -50,160 +55,72 @@ const UpdateModal = ({ refetch, profile, setUpdate }) => {
           <h1 class="text-3xl text-center text-pink-500 font-bold">
             Update Your Profile
           </h1>
-          <form action="" onSubmit={handleSubmit(onSubmit)}>
-            <div class="form-control">
-              <label class="label">
-                <span class="label-text">Email</span>
-              </label>
-              <input
-                type="text"
-                placeholder="email"
-                disabled
-                class="input input-bordered"
-                {...register(
-                  "email",
-                  { value: `${user.email}` },
-                  {
-                    required: {
-                      value: true,
-                      message: "Please enter your name",
-                    },
-                  }
-                )}
-              />
-            </div>
-            <div class="form-control">
-              <label class="label">
-                <span class="label-text">Name</span>
-              </label>
-              <input
-                type="text"
-                placeholder="name"
-                disabled
-                class="input input-bordered"
-                {...register(
-                  "name",
-                  { value: `${user.displayName}` },
-                  {
-                    required: {
-                      value: true,
-                      message: "Please enter your name",
-                    },
-                  }
-                )}
-              />
-            </div>
-            <div class="form-control">
+          <form action="" onSubmit={handleOnSubmit}>
+            <div class="form-control w-full max-w-lg">
               <label class="label">
                 <span class="label-text">Education</span>
               </label>
               <input
                 type="text"
-                placeholder="Education"
-                class="input input-bordered"
-                {...register(
-                  "education",
-                  { value: `${profile.education}` },
-                  {
-                    //   required: {
-                    //     value: true,
-                    //     message: "Please enter your education",
-                    //   },
-                  }
-                )}
+                name="education"
+                placeholder="Type here"
+                class="input input-bordered w-full max-w-lg"
               />
               <label class="label">
-                {errors?.education?.type === "required" && (
-                  <span className="text-red-700">
-                    {errors?.education.message}
-                  </span>
-                )}
+                {/* <span class="label-text-alt">Alt label</span>
+                <span class="label-text-alt">Alt label</span> */}
               </label>
             </div>
-            <div class="form-control">
+            <div class="form-control w-full max-w-lg">
               <label class="label">
                 <span class="label-text">Location</span>
               </label>
               <input
                 type="text"
-                placeholder="Location"
-                class="input input-bordered"
-                {...register(
-                  "location",
-                  { value: `${profile.location}` },
-                  {
-                    //   required: {
-                    //     value: true,
-                    //     message: "Please enter your location",
-                    //   },
-                  }
-                )}
+                name="location"
+                placeholder="Type here"
+                class="input input-bordered w-full max-w-lg"
               />
               <label class="label">
-                {errors?.location?.type === "required" && (
-                  <span className="text-red-700">
-                    {errors?.location.message}
-                  </span>
-                )}
+                {/* <span class="label-text-alt">Alt label</span>
+                <span class="label-text-alt">Alt label</span> */}
               </label>
             </div>
-            <div class="form-control">
+            <div class="form-control w-full max-w-lg">
               <label class="label">
                 <span class="label-text">Phone Number</span>
               </label>
               <input
                 type="text"
-                placeholder="Phone"
-                class="input input-bordered"
-                {...register(
-                  "phone",
-                  { value: `${profile.phone}` }
-                  //   {
-                  //     required: {
-                  //       value: true,
-                  //       message: "Please enter your phone number",
-                  //     },
-                  //   }
-                )}
+                name="phone"
+                placeholder="Type here"
+                class="input input-bordered w-full max-w-lg"
               />
               <label class="label">
-                {errors?.phone?.type === "required" && (
-                  <span className="text-red-700">{errors?.phone.message}</span>
-                )}
+                {/* <span class="label-text-alt">Alt label</span>
+                <span class="label-text-alt">Alt label</span> */}
               </label>
             </div>
-            <div class="form-control">
+            <div class="form-control w-full max-w-lg">
               <label class="label">
                 <span class="label-text">LinkedIn</span>
               </label>
               <input
                 type="text"
-                placeholder="LinkedIn"
-                class="input input-bordered"
-                {...register(
-                  "social",
-                  { value: `${profile.social}` },
-                  {
-                    //   required: {
-                    //     value: true,
-                    //     message: "Please enter your social link",
-                    //   },
-                  }
-                )}
+                name="linkedin"
+                placeholder="Type here"
+                class="input input-bordered w-full max-w-lg"
               />
               <label class="label">
-                {errors?.social?.type === "required" && (
-                  <span className="text-red-700">{errors?.social.message}</span>
-                )}
+                {/* <span class="label-text-alt">Alt label</span>
+                <span class="label-text-alt">Alt label</span> */}
               </label>
             </div>
-            <div class="text-center mx-auto ">
-              <input
-                className="btn btn-primary mt-5 w-full max-w-xs text-white"
-                type="submit"
-                value="Update"
-              />
-            </div>
+            <input
+              type="submit"
+              value="Save"
+              class="btn btn-primary justify-center mx-w-lg"
+            />
           </form>
           <div class="modal-action">
             <label for="my-modal-6" class="btn btn-error">

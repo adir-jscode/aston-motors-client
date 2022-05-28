@@ -56,7 +56,7 @@ const Header = () => {
 
               {user && (
                 <li>
-                  <NavLink to="/dashboard/profile">{user.displayName}</NavLink>
+                  <NavLink to="/dashboard/profile">{user?.displayName}</NavLink>
                 </li>
               )}
 

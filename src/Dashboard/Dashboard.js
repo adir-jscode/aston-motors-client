@@ -19,9 +19,9 @@ const Dashboard = () => {
       <div class="drawer drawer-mobile">
         <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
         <div class="drawer-content flex flex-col">
-          <h1 class="text-center text-2xl text-success font-bold">
+          {/* <h1 class="text-center text-2xl text-success font-bold">
             Welcome to Dashboard {user.displayName}
-          </h1>
+          </h1> */}
           <Outlet />
         </div>
         <div class="drawer-side">
