@@ -21,6 +21,7 @@ import NotFound from "./Shared/NotFound";
 import RequireAdmin from "./Register/RequireAdmin";
 import Payment from "./Dashboard/Payment";
 import MyPortfolio from "./My Portfolio/MyPortfolio";
+import Blogs from "./Blogs/Blogs";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/" element={<Home></Home>}></Route>
         <Route path="/home" element={<Home></Home>}></Route>
         <Route path="/portfolio" element={<MyPortfolio></MyPortfolio>}></Route>
+        <Route path="/blogs" element={<Blogs></Blogs>}></Route>
         <Route
           path="/purchase/:id"
           element={
@@ -46,8 +48,8 @@ function App() {
             </RequireAuth>
           }
         >
-          <Route index path="purchase" element={<MyPurchase />} />
-          <Route path="profile" element={<Profile />} />
+          <Route path="purchase" element={<MyPurchase />} />
+          <Route index path="profile" element={<Profile />} />
           <Route path="payment/:id" element={<Payment />} />
           <Route path="review" element={<AddReview />} />
           <Route

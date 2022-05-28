@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import auth from "../firebase.init";
 import Loading from "../Shared/Loading";
 
-const UpdateModal = ({ profile, setUpdate, refetch }) => {
+const UpdateModal = ({ profile, setUpdate, refetch, reload, setReload }) => {
   const [user, loading, error] = useAuthState(auth);
   const email = user?.email;
 
@@ -38,8 +38,8 @@ const UpdateModal = ({ profile, setUpdate, refetch }) => {
       .then((response) => response.json())
       .then((data) => {
         if (data) {
-          refetch();
           toast.success("data updated successfully");
+          setReload(!reload);
           setUpdate(false);
           event.target.reset();
         }
@@ -61,6 +61,7 @@ const UpdateModal = ({ profile, setUpdate, refetch }) => {
               <input
                 type="text"
                 name="education"
+                defaultValue={profile?.education}
                 placeholder="Type here"
                 class="input input-bordered w-full max-w-lg"
               />
@@ -76,6 +77,7 @@ const UpdateModal = ({ profile, setUpdate, refetch }) => {
               <input
                 type="text"
                 name="location"
+                defaultValue={profile?.location}
                 placeholder="Type here"
                 class="input input-bordered w-full max-w-lg"
               />
@@ -91,6 +93,7 @@ const UpdateModal = ({ profile, setUpdate, refetch }) => {
               <input
                 type="text"
                 name="phone"
+                defaultValue={profile?.phone}
                 placeholder="Type here"
                 class="input input-bordered w-full max-w-lg"
               />
@@ -106,6 +109,7 @@ const UpdateModal = ({ profile, setUpdate, refetch }) => {
               <input
                 type="text"
                 name="linkedin"
+                defaultValue={profile?.social}
                 placeholder="Type here"
                 class="input input-bordered w-full max-w-lg"
               />

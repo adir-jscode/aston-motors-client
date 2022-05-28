@@ -47,6 +47,12 @@ const Header = () => {
               <li>
                 <NavLink to="/home">Home</NavLink>
               </li>
+              <li>
+                <NavLink to="/portfolio">My Portfolio</NavLink>
+              </li>
+              <li>
+                <NavLink to="/blogs">Blogs</NavLink>
+              </li>
 
               {user && (
                 <li>
@@ -56,7 +62,7 @@ const Header = () => {
 
               {user && (
                 <li>
-                  <NavLink to="/dashboard/profile">{user?.displayName}</NavLink>
+                  <NavLink to="/">{user?.displayName}</NavLink>
                 </li>
               )}
 
@@ -85,6 +91,9 @@ const Header = () => {
             <li>
               <NavLink to="/portfolio">My Portfolio</NavLink>
             </li>
+            <li>
+              <NavLink to="/blogs">Blogs</NavLink>
+            </li>
 
             {user && (
               <li>
@@ -94,7 +103,7 @@ const Header = () => {
 
             {user && (
               <li>
-                <NavLink to="/dashboard/profile">{user.displayName}</NavLink>
+                <NavLink to="/">{user.displayName}</NavLink>
               </li>
             )}
 

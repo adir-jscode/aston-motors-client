@@ -1,10 +1,4 @@
 import React from "react";
-import lightning from "../assets/images/lightning.jpg";
-import repair from "../assets/images/repair.jpg";
-import electronics from "../assets/images/electronics.jpg";
-import performance from "../assets/images/performance.jpg";
-import bodyparts from "../assets/images/bodyparts.jpg";
-import wheels from "../assets/images/wheels.jpg";
 import CountUp from "react-countup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -29,8 +23,8 @@ const BusinessSummary = () => {
             <FontAwesomeIcon icon={faFlag} />
           </div>
           <div class="text-center font-bold mt-2">
-            <CountUp end={200} duration={2}></CountUp>
             <p>Countries</p>
+            <CountUp end={200} duration={2}></CountUp>
           </div>
         </div>
 
