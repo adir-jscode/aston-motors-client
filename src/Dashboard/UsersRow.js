@@ -3,13 +3,16 @@ import { toast } from "react-toastify";
 
 const UsersRow = ({ user, index, refetch }) => {
   const makeAdmin = () => {
-    fetch(`http://localhost:5000/user/admin/${user.email}`, {
-      method: "PUT",
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-        authorization: `Bearer ${localStorage.getItem("accessToken")} `,
-      },
-    })
+    fetch(
+      `https://polar-citadel-98077.herokuapp.com/user/admin/${user.email}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          authorization: `Bearer ${localStorage.getItem("accessToken")} `,
+        },
+      }
+    )
       .then((response) => {
         if (response.status === 403) {
           toast.error("Unable to make admin");

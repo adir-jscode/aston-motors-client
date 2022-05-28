@@ -14,12 +14,15 @@ const MyPurchase = () => {
     isLoading,
     refetch,
   } = useQuery(["myPurchase", user], () =>
-    fetch(`http://localhost:5000/purchase?email=${user?.email}`, {
-      method: "GET",
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-    }).then((res) => {
+    fetch(
+      `https://polar-citadel-98077.herokuapp.com/purchase?email=${user?.email}`,
+      {
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }
+    ).then((res) => {
       console.log(res);
       if (res.status === 401 || res.status === 403) {
         navigate("/");

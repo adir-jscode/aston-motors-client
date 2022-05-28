@@ -9,7 +9,7 @@ const Parts = () => {
     isLoading,
     refetch,
   } = useQuery("parts", () =>
-    fetch("http://localhost:5000/part", {
+    fetch("https://polar-citadel-98077.herokuapp.com/part", {
       method: "GET",
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,

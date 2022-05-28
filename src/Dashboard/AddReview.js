@@ -18,7 +18,7 @@ const AddReview = () => {
       ratings: data.ratings,
       description: data.review,
     };
-    fetch("http://localhost:5000/review", {
+    fetch("https://polar-citadel-98077.herokuapp.com/review", {
       method: "POST",
       body: JSON.stringify(reviewInfo),
       headers: {

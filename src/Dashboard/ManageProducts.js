@@ -11,7 +11,7 @@ const ManageProducts = () => {
     isLoading,
     refetch,
   } = useQuery("parts", () =>
-    fetch("http://localhost:5000/part", {
+    fetch("https://polar-citadel-98077.herokuapp.com/part", {
       method: "GET",
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -24,7 +24,7 @@ const ManageProducts = () => {
 
   const handleDelete = (id) => {
     console.log(id);
-    fetch(`http://localhost:5000/part/${id}`, {
+    fetch(`https://polar-citadel-98077.herokuapp.com/part/${id}`, {
       method: "DELETE",
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,

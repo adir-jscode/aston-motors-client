@@ -13,7 +13,7 @@ const CheckoutForm = ({ purchase }) => {
   const { _id, price, name, email } = purchase;
 
   useEffect(() => {
-    fetch("http://localhost:5000/create-payment-intent", {
+    fetch("https://polar-citadel-98077.herokuapp.com/create-payment-intent", {
       method: "POST",
       headers: {
         "content-type": "application/json",

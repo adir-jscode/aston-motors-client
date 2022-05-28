@@ -20,7 +20,7 @@ const Profile = () => {
   //   isLoading,
   //   refetch,
   // } = useQuery(["profile", email], () =>
-  //   fetch(`http://localhost:5000/profile?email=${email}`, {
+  //   fetch(`https://polar-citadel-98077.herokuapp.com/profile?email=${email}`, {
   //     method: "GET",
   //     headers: {
   //       authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -33,7 +33,7 @@ const Profile = () => {
   // }
 
   useEffect(() => {
-    fetch(`http://localhost:5000/profile?email=${email}`, {
+    fetch(`https://polar-citadel-98077.herokuapp.com/profile?email=${email}`, {
       method: "GET",
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,

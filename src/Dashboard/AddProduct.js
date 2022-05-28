@@ -36,7 +36,7 @@ const AddProduct = () => {
             image: img,
           };
           //send to database
-          fetch("http://localhost:5000/part", {
+          fetch("https://polar-citadel-98077.herokuapp.com/part", {
             method: "POST",
             body: JSON.stringify(productInfo),
             headers: {
