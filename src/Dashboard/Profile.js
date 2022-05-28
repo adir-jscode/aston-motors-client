@@ -17,7 +17,7 @@ const Profile = () => {
     data: profile,
     isLoading,
     refetch,
-  } = useQuery("profile", () =>
+  } = useQuery(["profile", email], () =>
     fetch(`http://localhost:5000/profile?email=${email}`, {
       method: "GET",
       headers: {
@@ -37,15 +37,17 @@ const Profile = () => {
         <div class="card-body">
           <h2 class="card-title">Profile name: {user.displayName}</h2>
           <h2 class="card-title">Email: {user.email}</h2>
-          <h2 class="card-title">Education: {profile?.education} </h2>
           <h2 class="card-title">
-            Location: {profile?.location ? profile?.location : " "}
+            Education: {profile?.education ? profile.education : "Null"}{" "}
           </h2>
           <h2 class="card-title">
-            Phone Number: {profile?.phone ? profile?.phone : " "}
+            Location: {profile?.location ? profile?.location : "Not Given"}
           </h2>
           <h2 class="card-title">
-            LinkedIn: {profile?.social ? profile?.social : " "}
+            Phone Number: {profile?.phone ? profile?.phone : "null "}
+          </h2>
+          <h2 class="card-title">
+            LinkedIn: {profile?.social ? profile?.social : "null "}
           </h2>
           <div class="card-actions justify-center">
             <label

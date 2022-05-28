@@ -9,7 +9,7 @@ import Loading from "../Shared/Loading";
 const UpdateModal = ({ profile, setUpdate, refetch }) => {
   const [user, loading, error] = useAuthState(auth);
   const email = user?.email;
-  console.log(email);
+
   //   const [education, setEducation] = useState("");
   //   const [location, setLocation] = useState("");
   //   const [number, setNumber] = useState("");
@@ -27,25 +27,23 @@ const UpdateModal = ({ profile, setUpdate, refetch }) => {
     const social = event.target.linkedin.value;
 
     const userInfo = { education, location, phone, social };
-    if (education && location && phone && social) {
-      fetch(`http://localhost:5000/profile/${email}`, {
-        method: "PUT",
-        body: JSON.stringify(userInfo),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-          authorization: `Bearer ${localStorage.getItem("accessToken")} `,
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.modifiedCount > 0) {
-            refetch();
-            toast.success("data updated successfully");
-            setUpdate(false);
-            event.target.reset();
-          }
-        });
-    }
+    fetch(`http://localhost:5000/profile/${email}`, {
+      method: "PUT",
+      body: JSON.stringify(userInfo),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        authorization: `Bearer ${localStorage.getItem("accessToken")} `,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data) {
+          refetch();
+          toast.success("data updated successfully");
+          setUpdate(false);
+          event.target.reset();
+        }
+      });
   };
   return (
     <div>
