@@ -24,7 +24,10 @@ const Header = () => {
       <div class="navbar bg-base-100 px-12">
         <div class="navbar-start">
           <div class="dropdown">
-            <label tabindex="0" class="btn btn-ghost lg:hidden">
+            <label
+              tabindex="0"
+              class="btn btn-ghost md:hidden sm:hidden lg:hidden"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 class="h-5 w-5"
@@ -48,7 +51,7 @@ const Header = () => {
                 <NavLink to="/home">Home</NavLink>
               </li>
               <li>
-                <NavLink to="/portfolio">My Portfolio</NavLink>
+                <NavLink to="/portfolio">Portfolio</NavLink>
               </li>
               <li>
                 <NavLink to="/blogs">Blogs</NavLink>
@@ -60,11 +63,11 @@ const Header = () => {
                 </li>
               )}
 
-              {user && (
+              {/* {user && (
                 <li>
                   <NavLink to="/">{user?.displayName}</NavLink>
                 </li>
-              )}
+              )} */}
 
               {user ? (
                 <>
@@ -89,7 +92,7 @@ const Header = () => {
               <NavLink to="/home">Home</NavLink>
             </li>
             <li>
-              <NavLink to="/portfolio">My Portfolio</NavLink>
+              <NavLink to="/portfolio">Portfolio</NavLink>
             </li>
             <li>
               <NavLink to="/blogs">Blogs</NavLink>
@@ -101,16 +104,16 @@ const Header = () => {
               </li>
             )}
 
-            {user && (
+            {/* {user && (
               <li>
                 <NavLink to="/">{user.displayName}</NavLink>
               </li>
-            )}
+            )} */}
 
             {user ? (
-              <button onClick={logout} class="btn btn-ghost">
+              <Link to="" onClick={logout} class="btn btn-ghost">
                 Logout
-              </button>
+              </Link>
             ) : (
               <li>
                 <NavLink to="/login">Login</NavLink>
